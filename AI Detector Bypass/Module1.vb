@@ -6,7 +6,9 @@
         Console.WriteLine(vbNewLine & "Make sure you have the text you want to be made undetectable copied to your clipboard!")
         Console.Write("Press any key to continue. . .")
         Console.ReadKey()
-        ReFormat()
+        Dim firstReFormat = ReFormat(RemoveUnallowedChar())
+        Dim secondReFormat = ReFormat(firstReFormat)
+        My.Computer.Clipboard.SetText(secondReFormat)
         Console.Clear()
         Console.ForegroundColor = ConsoleColor.Green
         PrintSuccess()
@@ -23,8 +25,6 @@
         Else
             Return False
         End If
-
-
     End Function
 
     Function randomside()
@@ -36,12 +36,18 @@
         End If
     End Function
 
-    Function ReWord()
+    Function RemoveUnallowedChar()
         Dim original_text As Array = My.Computer.Clipboard.GetText().Split(" ")
         Dim reconstructed_text As String
+        Dim count As Integer = 0
         For Each item In original_text
             If Not item = " " Then
-                reconstructed_text += " " & item
+                If count = 0 Then
+                    reconstructed_text += item
+                Else
+                    reconstructed_text += " " & item
+                End If
+                count += 1
             End If
         Next
         Return reconstructed_text
@@ -58,8 +64,7 @@
         End If
     End Function
 
-    Sub ReFormat()
-        Dim original_text As String = ReWord()
+    Function ReFormat(original_text As String)
         Dim seperated_text As Array = original_text.Split(" ")
         Dim reconstructed_text As String = ""
         Dim punction As String = """',.?/+_-=><:;\|`~*&^%$#!@"
@@ -110,8 +115,8 @@
                 End If
             End If
         Next
-        My.Computer.Clipboard.SetText(reconstructed_text)
-    End Sub
+        Return reconstructed_text
+    End Function
 
     Sub PrintSuccess()
         Console.WriteLine("
