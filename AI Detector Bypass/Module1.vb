@@ -67,7 +67,7 @@
     Function ReFormat(original_text As String)
         Dim seperated_text As Array = original_text.Split(" ")
         Dim reconstructed_text As String = ""
-        Dim punction As String = """',.?/+_-=><:;\|`~*&^%$#!@"
+        Dim punction() As String = {"""", "'", ",", ".", "?", "/", "+", "_", "-", "=", ">", "<", ":", ";", "\", "|", "`", "~", "*", "&", "^", "%", "$", "#", "!", "@", "'s"}
         Dim char1 As String = "​"
         Dim char2 As String = "​"
         Dim char3 As String = "⁤"
@@ -77,7 +77,7 @@
                 If x > 0 Then
                     Dim last_word As String = seperated_text(x - 1)
                     Try
-                        If punction.Contains(last_word(last_word.Length - 1)) Then
+                        If punction.Contains(last_word(last_word.Length - 1)) OrElse punction.Contains(last_word(last_word.Length - 2)) Then
                             reconstructed_text += String.Format(" {0}", seperated_text(x))
                         Else
                             If random(i) Then
