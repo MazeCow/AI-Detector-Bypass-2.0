@@ -1,6 +1,6 @@
 # AI-Detector-Bypass-2.0
 
-Should be easy to use, no explanation or tutorial need :)
+Should be easy to use, no explanation or tutorial needed :)
 Please use responsibly ( ͡° ͜ʖ ͡°)
 
 ## What this program looks like:
